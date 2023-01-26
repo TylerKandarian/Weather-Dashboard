@@ -76,3 +76,33 @@ function getData(event) {
             }
         });
 }
+
+// Displays the message returned from API
+function invalidInput() {
+    if(!isClearing) {
+        let messageSpace = $("<p>");
+        messageSpace.text("Please provide a valid city");
+        messageSpace.css("color", "red");
+        searchform.append(messageSpace); 
+        clearAnswer();  
+    } else {
+        clearAnswer();
+    }
+}
+
+// Clears the invalid input message
+// Checks if a timeout has already been set
+// If it has it clears the previous timeout and calls itself
+function clearAnswer() {
+    if(isClearing) {
+        isClearing = false;
+        clearTimeout(clearMessageCode);
+        clearAnswer();
+    } else {
+        isClearing = true;
+        clearMessageCode = setTimeout(function() {
+            searchform.children().eq(3).remove();
+            isClearing = false;
+        }, 1500);
+    }
+}
