@@ -106,3 +106,31 @@ function clearAnswer() {
         }, 1500);
     }
 }
+
+function displayWeather(data, city) {
+    let title = weather.children().eq(0).children("h2")
+    let conditions = weather.children().eq(0).children("img");
+    let temp = weather.children().eq(1);
+    let wind = weather.children().eq(2);
+    let humidity = weather.children().eq(3);
+    let uvIndex = weather.children().eq(4);
+    
+    weather.addClass("card bg-light mb-3");
+
+    title.text(`${city} ${today.format("MM/DD/YYYY")}`);
+    conditions.attr("src",`https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
+    temp.text(`Temp: ${data.current.temp}°C`);
+    wind.text(`Wind: ${Math.round((data.current.wind_speed * 3.6))} kph`);
+    humidity.text(`Humidty: ${data.current.humidity}%`);
+    uvIndex.text(`UV Index: ${data.current.uvi}`);
+
+    let uv = data.current.uvi;
+    if(uv < 4) {
+        uvIndex.css("background-color", "green");
+    }else if(uv < 7) {
+        uvIndex.css("background-color", "yellow");
+    }else {
+        uvIndex.css("background-color", "red");
+    }
+    
+}
