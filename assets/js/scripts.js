@@ -52,7 +52,7 @@ function getData(event) {
     return;
   }
 
-  let requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=88e8bf6b6b4e9cfb8d121eb3126e42d4c`;
+  let requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}{&appid=5911de58d825147b5fa891cd55dfb5c0&units=imperial}`;
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -61,7 +61,7 @@ function getData(event) {
       if (data.length) {
         let lat = data[0].lat;
         let lon = data[0].lon;
-        requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=88e8bf6b6b4e9cfb8d121eb3126e42d4`;
+        requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=5911de58d825147b5fa891cd55dfb5c0&units=imperial`;
         fetch(requestUrl)
           .then(function (response) {
             return response.json();
@@ -122,8 +122,8 @@ function displayWeather(data, city) {
     "src",
     `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`
   );
-  temp.text(`Temp: ${data.current.temp}°C`);
-  wind.text(`Wind: ${Math.round(data.current.wind_speed * 3.6)} kph`);
+  temp.text(`Temp: ${data.current.temp}°F`);
+  wind.text(`Wind: ${Math.round(data.current.wind_speed * 3.6)} mph`);
   humidity.text(`Humidty: ${data.current.humidity}%`);
   uvIndex.text(`UV Index: ${data.current.uvi}`);
 
@@ -155,8 +155,8 @@ function displayForecast(data) {
       "src",
       `https://openweathermap.org/img/w/${data.daily[index].weather[0].icon}.png`
     );
-    temp.text(`Temp: ${data.daily[index].temp.day}°C`);
-    wind.text(`Wind: ${Math.round(data.daily[index].wind_speed * 3.6)} kph`);
+    temp.text(`Temp: ${data.daily[index].temp.day}°F`);
+    wind.text(`Wind: ${Math.round(data.daily[index].wind_speed * 3.6)} mph`);
     humidity.text(`Humidity: ${data.daily[index].humidity}%`);
   }
 }
